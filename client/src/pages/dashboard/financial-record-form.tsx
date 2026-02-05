@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useUser } from "@clerk/clerk-react";
 
 export const FinancialRecordForm = () => {
 
@@ -6,11 +7,28 @@ export const FinancialRecordForm = () => {
    const [amount, setAmount] = useState<string>("");
    const [category, setCategory] = useState<string>("");
    const [paymentMethod, setPaymentMethod] = useState<string>("");
+
+   const {user} = useUser();
    
    // React.FormEvent<HTMLFormElement> = this is already depreciated that's why
    // I used SyntheticEvent
    const handleSubmit = (event: React.SyntheticEvent<HTMLFormElement>) => {
          event.preventDefault();
+
+         const newRecord = {
+            userId: user?.id,
+            date: new Date(),
+            description: description,
+            amount: parseFloat(amount),
+            category: category,
+            paymentMethod: paymentMethod,
+         };
+
+         // addRecord (newRecord)
+         setDescription("");
+         setAmount("");
+         setCategory("");
+         setDescription("");
    }
 
    return (
@@ -18,16 +36,16 @@ export const FinancialRecordForm = () => {
          <form onSubmit={handleSubmit}>
             <div className="form-field">
                <label>Description:</label>
-               <input type="text" required className="input" />
+               <input type="text" required className="input" value={description} onChange={(e) => setDescription(e.target.value)}/>
             </div>
             <div className="form-field">
                <label>Amount:</label>
-               <input type="number" required className="input" />
+               <input type="number" required className="input" value={amount} onChange={(e) => setAmount(e.target.value)}/>
             </div>
 
             <div className="form-field">
                 <label>Category:</label>
-                <select required className="input">
+                <select required className="input" value={category} onChange={(e) => setCategory(e.target.value)}>
                     <option value="">Select a Category</option>
                     <option value="Food">Food</option>
                     <option value="Rent">Rent</option>
@@ -40,7 +58,7 @@ export const FinancialRecordForm = () => {
 
             <div className="form-field">
                 <label>Payment Method:</label>
-                <select required className="input">
+                <select required className="input" value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)}>
                     <option value="">Select a Payment Method</option>
                     <option value="Credit Card">Credit Card</option>
                     <option value="Cash">Cash</option>
