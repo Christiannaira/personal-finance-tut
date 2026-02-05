@@ -1,7 +1,21 @@
+import { useState } from "react";
+
 export const FinancialRecordForm = () => {
+
+   const [description, setDescription] = useState<string>("");
+   const [amount, setAmount] = useState<string>("");
+   const [category, setCategory] = useState<string>("");
+   const [paymentMethod, setPaymentMethod] = useState<string>("");
+   
+   // React.FormEvent<HTMLFormElement> = this is already depreciated that's why
+   // I used SyntheticEvent
+   const handleSubmit = (event: React.SyntheticEvent<HTMLFormElement>) => {
+         event.preventDefault();
+   }
+
    return (
       <div className="form-container">
-         <form>
+         <form onSubmit={handleSubmit}>
             <div className="form-field">
                <label>Description:</label>
                <input type="text" required className="input" />
