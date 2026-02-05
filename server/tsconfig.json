@@ -39,7 +39,8 @@
     // Recommended Options
     "strict": true,
     "jsx": "react-jsx",
-    "verbatimModuleSyntax": true,
+    // "verbatimModuleSyntax": true, // work with traditional nodejs&expressjs
+    // verbatimModuleSyntax is a strict mode that forces you to be explicit about whether you're writing CommonJS or ES modules. For learning MERN stack, you don't need this strict mode - just remove it!
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
