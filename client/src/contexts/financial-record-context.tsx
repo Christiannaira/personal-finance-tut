@@ -1,5 +1,4 @@
-import { createContext } from "react";
-import { useState } from "react";
+import { createContext, useState, useContext } from "react";
 
 interface FinancialRecord {
     id?: string;
@@ -38,3 +37,17 @@ export const FinancialRecordsProvider = ({
         </FinancialRecordsContext.Provider>
     )
 }
+
+export const useFinancialRecords = () => {
+    const context = useContext<FinancialRecordsContextType | undefined> (
+        FinancialRecordsContext
+    );
+
+    if (!context) {
+        throw new Error(
+            "useFinancialRecords must be used within a Financial Records Provider"
+        );
+    }
+
+    return context;
+};
