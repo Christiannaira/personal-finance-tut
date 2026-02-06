@@ -23,6 +23,8 @@
 
     // Stricter Typechecking Options
     "noUncheckedIndexedAccess": true,
+
+    // I will learn this
     "exactOptionalPropertyTypes": true,
 
     "esModuleInterop": true,
