@@ -28,7 +28,18 @@ export const FinancialRecordsProvider = ({
 
     const [records, setRecords] = useState<FinancialRecord[]>([]);
 
-    const addRecord = (record: FinancialRecord) => {
+    const addRecord = async (record: FinancialRecord) => {
+        const response = await fetch("https://localhost:3001/financial-records", {
+            method: "POST",
+            body: JSON.stringify(record),
+        });
+
+        try {
+            if (response.ok) {
+                const newRecord = await response.json();
+                setRecords((prev) => [...prev, newRecord]);
+            } 
+        } catch (err) {}
     };
 
     return (
